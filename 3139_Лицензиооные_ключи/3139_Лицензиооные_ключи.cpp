@@ -6,10 +6,8 @@ int count(vector <char>& key, vector <char>& alphabet, int P);
 
 bool check(vector <char>& key, vector <char>& alphabet, vector <int>& sum, int P) {
 	int c = count(key, alphabet, P), b = 0;
-	for (int i = 0; i < sum.size(); ++i)
-	{
-		if (sum[i] == c)
-		{
+	for (int i = 0; i < sum.size(); ++i){
+		if (sum[i] == c){
 			return false;
 			b = 1;
 			break;
@@ -17,7 +15,7 @@ bool check(vector <char>& key, vector <char>& alphabet, vector <int>& sum, int P
 		b = 2;
 	}
 	if (b == 2)
-		return true;
+	return true;
 }
 
 int count(vector <char>& key, vector <char>& alphabet, int P) {
@@ -41,14 +39,14 @@ void Gen(vector <char>& key, vector <char>& alphabet, int P, vector <int>& sum) 
 		}
 }
 
-void plustire(vector<char>& key) {
+void tire(vector<char>& key) {
 	key.insert(key.begin() + 5, '-');
 	key.insert(key.begin() + 11, '-');
 	key.insert(key.begin() + 17, '-');
 	key.insert(key.begin() + 23, '-');
 }
 
-void minustire(vector<char>& key) {
+void erase_tire(vector<char>& key) {
 	key.erase(key.begin() + 5);
 	key.erase(key.begin() + 10);
 	key.erase(key.begin() + 15);
@@ -79,20 +77,23 @@ int main()
 	cin >> N >> P;
 	vector <char> alphabet = { '0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z' };
 	vector <int> sum(0);
+
 	while (N > 0) {
 		vector <char> key(x);
 		for (int i = 0; i < 29; ++i)
 			cin >> key[i];
-		minustire(key);
+		erase_tire(key);
 		sum.push_back(count(key, alphabet, P));
 		key.clear();
-		--N;
+		N--;
 	}
+
 	vector <char> key = { '0','0','0','0','0','0','0','0','0','0', '0','0','0','0','0','0','0','0','0','0','0','0','0','0','0' };
+
 	if (impossible(sum, P)) {
 		Gen(key, alphabet, P, sum);
 		if (check(key, alphabet, sum, P)) {
-			plustire(key);
+			tire(key);
 			for (int i = 0; i < 29; ++i)
 				cout << key[i];
 		}

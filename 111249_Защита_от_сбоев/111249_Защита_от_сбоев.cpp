@@ -1,16 +1,12 @@
 ﻿#include <iostream>
-#include <vector>
 #include <string>
 #include <fstream>
-#include <ctime>
-#include <cmath>
+
 
 using namespace std;
 
 ifstream fin;
 ofstream fout;
-
-
 int main()
 {
 	fin.open("input.txt");
@@ -24,21 +20,17 @@ int main()
 		if (word[i] == '1')
 			sum++;
 
-	if (word[word.length() - 1] == 'e')
-	{
+	if (word[word.length() - 1] == 'e'){
 		if (sum % 2 == 0)
 			word[word.length() - 1] = '0';
 		else
 			word[word.length() - 1] = '1';
 	}
-	else
-	{
+	else{
 		if (sum % 2 == 1)
 			word[word.length() - 1] = '0';
 		else
 			word[word.length() - 1] = '1';
 	}
-
 	fout << word;
-
 }
