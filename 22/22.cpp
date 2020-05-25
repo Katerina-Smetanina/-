@@ -3,31 +3,9 @@
 #define _CRT_SECURE_NO_WARNINGS
 #define ll long long
 
-#include <stdio.h>
-#include <limits.h>
-
-#include <algorithm>
-#include <iterator>
 #include <iostream>
-#include <iomanip>
-#include <sstream>
-#include <fstream>
-#include <cstdlib>
-#include <cstring>
-#include <cassert>
-#include <string>
-#include <vector>
-#include <cstdio>
-#include <deque>
-#include <queue>
-#include <stack>
-#include <ctime>
-#include <cmath>
-#include <regex>
-#include <map>
-#include <set>
-
 using namespace std;
+
 
 template<class T>
 struct Node // ячейка дерева
@@ -71,10 +49,8 @@ struct BinTree
 		Node<T>* prevPar = NULL; // предшествующий ему элемент
 
 		// спускаемся по дереву, пока не находим свободное место, либо элемент с таким же значением
-		while (par != NULL && par->data != value)
-		{
+		while (par != NULL && par->data != value){
 			prevPar = par;
-
 			if (*par > * newNode)
 				par = par->left;
 			else
@@ -83,8 +59,7 @@ struct BinTree
 
 		// если элемент с таким же значеним уже есть в дереве, то мы удаляем созданную ячейку и выходим
 		// т.к. в дереве не должно быть повторяющихся элементов
-		if (par != NULL && par->data == value)
-		{
+		if (par != NULL && par->data == value){
 			delete newNode;
 			return;
 		}
@@ -92,12 +67,10 @@ struct BinTree
 		// ставим новый элемент на свободное место место
 		newNode->parent = prevPar;
 
-		if (prevPar == NULL) // такое возможно только тогда, когда root == NULL, т.е. дерево пустое
-		{
+		if (prevPar == NULL){ // такое возможно только тогда, когда root == NULL, т.е. дерево пустое
 			root = newNode;
 		}
-		else
-		{
+		else{
 			if (*prevPar > * newNode)
 				prevPar->left = newNode;
 			else
@@ -105,8 +78,7 @@ struct BinTree
 		}
 	}
 
-	Node<T>* FindNode(T value)
-	{
+	Node<T>* FindNode(T value){
 		Node<T>* temp = root;
 
 		while (temp != NULL && temp->data != value) // перебираем элементы, пока не находим нужный или пока не переберём все
@@ -115,15 +87,12 @@ struct BinTree
 		return temp;
 	}
 
-	Node<T>* FindNextNode(T value)
-	{
+	Node<T>* FindNextNode(T value){
 		return FindNextNode(FindNode(value));
 	}
 
-	Node<T>* FindNextNode(Node<T>* temp) //Взято из интернетов
-	{
+	Node<T>* FindNextNode(Node<T>* temp){ //Взято из интернетов
 		Node<T>* res;
-
 		if (temp == NULL)
 			return NULL;
 		if (temp->right != NULL)
@@ -131,8 +100,7 @@ struct BinTree
 
 		res = temp->parent;
 
-		while (res != NULL && temp == res->right)
-		{
+		while (res != NULL && temp == res->right){
 			temp = res;
 			res = res->parent;
 		}
@@ -140,8 +108,7 @@ struct BinTree
 		return res;
 	}
 
-	Node<T>* FindMinNode(Node<T>* temp)
-	{
+	Node<T>* FindMinNode(Node<T>* temp){
 		if (temp == NULL)
 			throw "Empty tree";
 
@@ -151,8 +118,7 @@ struct BinTree
 		return temp;
 	}
 
-	Node<T>* FindMaxNode(Node<T>* temp)
-	{
+	Node<T>* FindMaxNode(Node<T>* temp){
 		if (temp == NULL)
 			throw "Empty tree";
 
@@ -162,23 +128,19 @@ struct BinTree
 		return temp;
 	}
 
-	T Min()
-	{
+	T Min(){
 		return FindMinNode(root)->data;
 	}
 
-	T Max()
-	{
+	T Max(){
 		return FindMaxNode(root)->data;
 	}
 
-	Node<T>* DeleteNode(T value)
-	{
+	Node<T>* DeleteNode(T value){
 		return DeleteNode(FindNode(value));
 	}
 
-	Node<T>* DeleteNode(Node<T>* node) //Взято из интернетов
-	{
+	Node<T>* DeleteNode(Node<T>* node){ //Взято из интернетов
 		Node<T>* res;
 		Node<T>* temp;
 
@@ -197,8 +159,7 @@ struct BinTree
 
 		if (res->parent == NULL)
 			root = temp;
-		else
-		{
+		else{
 			if (res == (res->parent)->left)
 				(res->parent)->left = temp;
 			else
@@ -211,13 +172,12 @@ struct BinTree
 		return res;
 	}
 
-	int GetDepth(Node<T>* h, int d = 0)
-	{
+	int GetHeight(Node<T>* h, int d = 0){
 		if (h == NULL)
 			return 0;
 
 		d++;
-		return max(d, max(GetDepth(h->left, d), GetDepth(h->right, d)));
+		return max(d, max(GetHeight(h->left, d), GetHeight(h->right, d)));
 	}
 
 	void Print(int type = 0, char sep = ' ')
@@ -294,7 +254,7 @@ int main()
 		temp.Add(_);
 	}
 
-	cout << temp.GetDepth(temp.root) << '\n';
+	cout << temp.GetHeight(temp.root) << '\n';
 	temp.PrintTree(temp.root);
 
 	return 0;
