@@ -4,26 +4,7 @@
 #include <stdio.h>
 #include <limits.h>
 
-#include <algorithm>
-#include <iterator>
 #include <iostream>
-#include <sstream>
-#include <fstream>
-#include <cstdlib>
-#include <cstring>
-#include <cassert>
-#include <string>
-#include <vector>
-#include <cstdio>
-#include <deque>
-#include <queue>
-#include <stack>
-#include <ctime>
-#include <cmath>
-#include <regex>
-#include <map>
-#include <set>
-
 using namespace std;
 
 template <class T>
@@ -89,12 +70,10 @@ struct BinTree
 		// ставим новый элемент на свободное место место
 		newNode->parent = prevPar;
 
-		if (prevPar == NULL) // такое возможно только тогда, когда root == NULL, т.е. дерево пустое
-		{
+		if (prevPar == NULL){ // такое возможно только тогда, когда root == NULL, т.е. дерево пустое
 			root = newNode;
 		}
-		else
-		{
+		else{
 			if (*prevPar > * newNode)
 				prevPar->left = newNode;
 			else
@@ -103,8 +82,7 @@ struct BinTree
 		return true;
 	}
 
-	Node<T>* FindNode(T value)
-	{
+	Node<T>* FindNode(T value){
 		Node<T>* temp = root;
 
 		while (temp != NULL && temp->data != value) // перебираем элементы, пока не находим нужный или пока не переберём все
@@ -113,8 +91,7 @@ struct BinTree
 		return temp;
 	}
 
-	Node<T>* FindMinNode(Node<T>* temp)
-	{
+	Node<T>* FindMinNode(Node<T>* temp){
 		if (temp == NULL)
 			throw "Empty tree";
 
@@ -124,8 +101,7 @@ struct BinTree
 		return temp;
 	}
 
-	Node<T>* FindMaxNode(Node<T>* temp)
-	{
+	Node<T>* FindMaxNode(Node<T>* temp){
 		if (temp == NULL)
 			throw "Empty tree";
 
@@ -135,28 +111,23 @@ struct BinTree
 		return temp;
 	}
 
-	T Min()
-	{
+	T Min(){
 		return FindMinNode(root)->data;
 	}
 
-	T Max()
-	{
+	T Max(){
 		return FindMaxNode(root)->data;
 	}
 
-	bool DeleteNode(T value)
-	{
+	bool DeleteNode(T value){
 		return DeleteNodeA(FindNode(value));
 	}
 
-	bool DeleteNodeA(Node<T>* node)
-	{
+	bool DeleteNodeA(Node<T>* node){
 		if (node == NULL)
 			return false;
 
-		if (node->left != NULL && node->right != NULL)
-		{
+		if (node->left != NULL && node->right != NULL){
 			Node<T>* temp = FindMaxNode(node->left);
 			node->data = temp->data;
 
@@ -168,15 +139,13 @@ struct BinTree
 		else if (node->right != NULL)
 			node->right->parent = node->parent;
 
-		if (node != root)
-		{
+		if (node != root){
 			if (node == node->parent->right)
 				node->parent->right = node->left != NULL ? node->left : node->right;
 			else
 				node->parent->left = node->left != NULL ? node->left : node->right;
 		}
-		else
-		{
+		else{
 			root = node->left != NULL ? node->left : node->right;
 		}
 
@@ -184,8 +153,7 @@ struct BinTree
 		return true;
 	}
 
-	void print_tree(Node<T>* p, int level)
-	{
+	void print_tree(Node<T>* p, int level){
 		if (p == NULL)
 			return;
 
@@ -199,8 +167,7 @@ struct BinTree
 		print_tree(p->right, level + 1);
 	}
 
-	void print(int type = 0, char sep = ' ')
-	{
+	void print(int type = 0, char sep = ' '){
 		if (type == 0)
 			LKP(root, sep);
 		else if (type > 0)
@@ -209,8 +176,7 @@ struct BinTree
 			LPK(root, sep);
 	}
 
-	void LKP(Node<T>* node, char sep) // левый корень правый
-	{
+	void LKP(Node<T>* node, char sep){ // левый корень правый
 		if (node->left != NULL)
 			LKP(node->left, sep);
 
@@ -220,8 +186,7 @@ struct BinTree
 			LKP(node->right, sep);
 	}
 
-	void KLP(Node<T>* node, char sep) // корень левый правый
-	{
+	void KLP(Node<T>* node, char sep){ // корень левый правый
 		cout << node->data << sep;
 
 		if (node->left != NULL)
@@ -231,8 +196,8 @@ struct BinTree
 			KLP(node->right, sep);
 	}
 
-	void LPK(Node<T>* node, char sep) // левый правый корень
-	{
+	void LPK(Node<T>* node, char sep){ // левый правый корень
+	
 		if (node->left != NULL)
 			LPK(node->left, sep);
 
