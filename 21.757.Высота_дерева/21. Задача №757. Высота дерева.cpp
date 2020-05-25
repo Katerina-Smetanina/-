@@ -7,25 +7,7 @@
 #include <stdio.h>
 #include <limits.h>
 
-#include <algorithm>
-#include <iterator>
 #include <iostream>
-#include <sstream>
-#include <fstream>
-#include <cstdlib>
-#include <cstring>
-#include <cassert>
-#include <string>
-#include <vector>
-#include <cstdio>
-#include <deque>
-#include <queue>
-#include <stack>
-#include <ctime>
-#include <cmath>
-#include <regex>
-#include <map>
-#include <set>
 
 using namespace std;
 
@@ -211,13 +193,13 @@ struct BinTree
 		return res;
 	}
 
-	int GetDepth(Node<T>* h, int d = 0)
+	int GetHight(Node<T>* hill, int d = 0)
 	{
-		if (h == NULL)
+		if (hill == NULL)
 			return 0;
 
 		d++;
-		return max(d, max(GetDepth(h->left, d), GetDepth(h->right, d)));
+		return max(d, max(GetHight(hill->left, d), GetHight(hill->right, d)));
 	}
 
 	void Print(int type = 0, char sep = ' ')
@@ -276,7 +258,7 @@ int main()
 		temp.Add(_);
 	}
 
-	cout << temp.GetDepth(temp.root);
+	cout << temp.GetHight(temp.root);
 
 	return 0;
 }
